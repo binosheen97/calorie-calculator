@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Calorie Calculator - Daily Calorie Needs, TDEE & BMR Calculator</title>
+    <meta name="description" content="Free calorie calculator. Calculate your daily calorie needs (TDEE), BMR, and macronutrients for weight loss, maintenance, or muscle gain. Based on age, weight, height, and activity level.">
+    <meta name="keywords" content="calorie calculator, TDEE calculator, BMR calculator, daily calorie needs, weight loss calculator, calorie intake, macronutrient calculator, how many calories">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://binosheen97.github.io/calorie-calculator/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Calorie Calculator - Find Your Daily Calorie Needs">
+    <meta property="og:description" content="Calculate your BMR, TDEE, and daily calorie needs for weight loss, maintenance, or muscle gain. Free and instant.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://binosheen97.github.io/calorie-calculator/">
+
+    <!-- Google Verification -->
+    <meta name="google-site-verification" content="cBtI9qnEEtgjEyN--AIkGKP__lNGdHbMJEZI72XqDSo" />
+    <meta name="google-adsense-account" content="ca-pub-9209701505864374">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QV903LBHRQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QV903LBHRQ');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9209701505864374" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔥 Calorie Calculator</h1>
+            <p class="subtitle">Calculate Your Daily Calorie Needs, BMR & TDEE</p>
+        </header>
+
+        <div class="calculator-container">
+
+            <!-- Left Column: Input -->
+            <div class="left-column">
+                <div class="calc-card">
+                    <h2>Your Details</h2>
+
+                    <!-- Unit Toggle -->
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" data-unit="metric" onclick="switchUnit('metric')">Metric (kg/cm)</button>
+                        <button class="unit-btn" data-unit="imperial" onclick="switchUnit('imperial')">Imperial (lbs/ft)</button>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="input-group">
+                        <label>Gender</label>
+                        <div class="gender-toggle">
+                            <button class="gender-btn active" id="btn-male" onclick="setGender('male')">👨 Male</button>
+                            <button class="gender-btn" id="btn-female" onclick="setGender('female')">👩 Female</button>
+                        </div>
+                    </div>
+
+                    <!-- Age -->
+                    <div class="input-group">
+                        <label>Age</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="age" placeholder="25" min="1" max="120">
+                            <span class="unit-label">years</span>
+                        </div>
+                    </div>
+
+                    <!-- Weight -->
+                    <div class="input-group">
+                        <label>Weight</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="weight" placeholder="70" min="1" step="0.1">
+                            <span class="unit-label" id="weight-unit">kg</span>
+                        </div>
+                    </div>
+
+                    <!-- Height Metric -->
+                    <div class="input-group metric-field">
+                        <label>Height</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="height-cm" placeholder="170" min="1" step="0.1">
+                            <span class="unit-label">cm</span>
+                        </div>
+                    </div>
+
+                    <!-- Height Imperial -->
+                    <div class="input-group imperial-field" style="display:none">
+                        <label>Height</label>
+                        <div class="height-row">
+                            <div class="input-wrapper">
+                                <input type="number" id="height-ft" placeholder="5" min="1" max="8">
+                                <span class="unit-label">ft</span>
+                            </div>
+                            <div class="input-wrapper">
+                                <input type="number" id="height-in" placeholder="7" min="0" max="11">
+                                <span class="unit-label">in</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Level -->
+                    <div class="input-group">
+                        <label>Activity Level</label>
+                        <select id="activity" class="select-input">
+                            <option value="1.2">😴 Sedentary (little or no exercise)</option>
+                            <option value="1.375">🚶 Lightly Active (1-3 days/week)</option>
+                            <option value="1.55" selected>🏃 Moderately Active (3-5 days/week)</option>
+                            <option value="1.725">🏋️ Very Active (6-7 days/week)</option>
+                            <option value="1.9">⚡ Extremely Active (athlete, 2x/day)</option>
+                        </select>
+                    </div>
+
+                    <!-- Goal -->
+                    <div class="input-group">
+                        <label>Your Goal</label>
+                        <div class="goal-grid">
+                            <button class="goal-btn" id="goal-lose" onclick="setGoal('lose')">⬇️ Lose Weight</button>
+                            <button class="goal-btn active" id="goal-maintain" onclick="setGoal('maintain')">⚖️ Maintain</button>
+                            <button class="goal-btn" id="goal-gain" onclick="setGoal('gain')">⬆️ Gain Weight</button>
+                        </div>
+                    </div>
+
+                    <button class="calculate-btn" onclick="calculate()">
+                        <span>Calculate Calories</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+
+                    <div class="error-msg" id="error-msg"></div>
+                </div>
+
+                <!-- Ad Unit -->
+                <div class="ad-container">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-9209701505864374"
+                         data-ad-slot="auto"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+            </div>
+
+            <!-- Right Column: Results -->
+            <div class="right-column">
+                <div class="results-card" id="results-card">
+                    <div class="results-placeholder">
+                        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                        <p>Enter your details and click Calculate to see your daily calorie needs</p>
+                    </div>
+                </div>
+
+                <div class="info-side-card">
+                    <h3>📊 Activity Guide</h3>
+                    <div class="activity-guide">
+                        <div class="activity-item">
+                            <span class="activity-icon">😴</span>
+                            <div>
+                                <strong>Sedentary</strong>
+                                <span>Desk job, no exercise</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🚶</span>
+                            <div>
+                                <strong>Lightly Active</strong>
+                                <span>Light exercise 1-3 days/week</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🏃</span>
+                            <div>
+                                <strong>Moderately Active</strong>
+                                <span>Moderate exercise 3-5 days/week</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🏋️</span>
+                            <div>
+                                <strong>Very Active</strong>
+                                <span>Hard exercise 6-7 days/week</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">⚡</span>
+                            <div>
+                                <strong>Extremely Active</strong>
+                                <span>Professional athlete or 2x/day training</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <div class="info-card">
+                <h2>What is BMR?</h2>
+                <p>BMR (Basal Metabolic Rate) is the number of calories your body needs to perform basic life-sustaining functions while at rest — like breathing, circulation, and cell production.</p>
+                <p>We use the <strong>Mifflin-St Jeor equation</strong>, the most accurate formula available:</p>
+                <ul>
+                    <li><strong>Male:</strong> BMR = 10W + 6.25H - 5A + 5</li>
+                    <li><strong>Female:</strong> BMR = 10W + 6.25H - 5A - 161</li>
+                    <li>W = weight (kg), H = height (cm), A = age (years)</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h2>What is TDEE?</h2>
+                <p>TDEE (Total Daily Energy Expenditure) is the total number of calories you burn per day when exercise and physical activity are taken into account.</p>
+                <p><strong>TDEE = BMR × Activity Multiplier</strong></p>
+                <ul>
+                    <li>This is your maintenance calorie level</li>
+                    <li>Eat less to lose weight (deficit of 500 cal/day = ~1 lb/week loss)</li>
+                    <li>Eat more to gain weight (surplus of 300-500 cal/day)</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h2>Macronutrients Guide</h2>
+                <ul>
+                    <li><strong>Protein:</strong> 4 cal/g — builds muscle, keeps you full</li>
+                    <li><strong>Carbohydrates:</strong> 4 cal/g — primary energy source</li>
+                    <li><strong>Fat:</strong> 9 cal/g — hormones, brain health</li>
+                    <li><strong>For weight loss:</strong> High protein (35%), moderate carbs (35%), fat (30%)</li>
+                    <li><strong>For muscle gain:</strong> High protein (30%), high carbs (45%), fat (25%)</li>
+                    <li><strong>Maintenance:</strong> Protein (25%), carbs (50%), fat (25%)</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                <strong>Calculators:</strong>
+                <a href="/age-calculator/">Age</a> |
+                <a href="/bmi-calculator/">BMI</a> |
+                <a href="/percentage-calculator/">Percentage</a> |
+                <a href="/date-calculator/">Date</a> |
+                <a href="/loan-calculator/">Loan/EMI</a> |
+                <a href="/calorie-calculator/">Calories</a>
+            </p>
+            <p>
+                <strong>Tools:</strong>
+                <a href="/unit-converter/">Unit Converter</a> |
+                <a href="/password-generator/">Password Generator</a>
+            </p>
+            <p>
+                <a href="/">Home</a> |
+                <a href="/about.html">About Us</a> |
+                <a href="/contact.html">Contact</a> |
+                <a href="/privacy-policy.html">Privacy Policy</a> |
+                <a href="/terms-of-service.html">Terms of Service</a>
+            </p>
+            <p>&copy; 2026 Free Online Tools. Free calorie & TDEE calculator.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
